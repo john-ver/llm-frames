@@ -31,7 +31,14 @@ function runFfmpeg(
     proc.stderr.on("data", (d) => (stderr += d.toString()));
     proc.on("close", (code) => {
       if (code === 0) resolve({ stdout, stderr });
-      else reject(new Error(`ffmpeg exited with code ${code}\n${stderr}`));
+      else {
+        const relevant = stderr
+          .split("\n")
+          .filter((l) => /error|invalid|failed|cannot|no such/i.test(l))
+          .slice(0, 5)
+          .join("\n");
+        reject(new Error(`ffmpeg exited with code ${code}\n${relevant || "(no error detail)"}`));
+      }
     });
     proc.on("error", reject);
   });
