@@ -177,6 +177,9 @@ export async function extractFrames(
     ffmpegPath = DEFAULTS.ffmpegPath,
   } = opts;
 
+  if (!Number.isInteger(count) || count < 1 || count > 200) {
+    throw new Error(`Invalid count: expected integer 1–200, got ${JSON.stringify(count)}`);
+  }
   if (typeof width !== "number" || !Number.isInteger(width) || width < 1 || width > 4096) {
     throw new Error(`Invalid width: expected integer 1–4096, got ${JSON.stringify(width)}`);
   }
