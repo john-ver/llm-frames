@@ -177,6 +177,16 @@ export async function extractFrames(
     ffmpegPath = DEFAULTS.ffmpegPath,
   } = opts;
 
+  if (typeof width !== "number" || !Number.isInteger(width) || width < 1 || width > 4096) {
+    throw new Error(`Invalid width: expected integer 1–4096, got ${JSON.stringify(width)}`);
+  }
+  if (typeof quality !== "number" || !Number.isInteger(quality) || quality < 1 || quality > 31) {
+    throw new Error(`Invalid quality: expected integer 1–31, got ${JSON.stringify(quality)}`);
+  }
+  if (typeof sceneThreshold !== "number" || !isFinite(sceneThreshold) || sceneThreshold < 0 || sceneThreshold > 1) {
+    throw new Error(`Invalid sceneThreshold: expected number 0–1, got ${JSON.stringify(sceneThreshold)}`);
+  }
+
   const { duration: fullDuration, videoWidth, videoHeight } = await getVideoInfo(input, ffmpegPath);
   const start = opts.startTime ?? 0;
   const end = opts.endTime ?? fullDuration;
