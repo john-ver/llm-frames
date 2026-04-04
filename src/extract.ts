@@ -1,5 +1,5 @@
 import { spawn } from "child_process";
-import { mkdtemp, readdir, readFile, rm } from "fs/promises";
+import { mkdtemp, readFile, rm } from "fs/promises";
 import { tmpdir } from "os";
 import { join } from "path";
 import type { ExtractOptions, VideoFrame } from "./types.js";
@@ -64,24 +64,6 @@ export async function getVideoInfo(
       const videoHeight = mSize ? +mSize[2] : 1080;
 
       resolve({ duration, videoWidth, videoHeight });
-    });
-    proc.on("error", reject);
-  });
-}
-
-/** @deprecated use getVideoInfo */
-export async function getDuration(
-  input: string,
-  ffmpegPath = DEFAULTS.ffmpegPath
-): Promise<number> {
-  const proc = spawn(ffmpegPath, ["-i", input]);
-  return new Promise((resolve, reject) => {
-    let stderr = "";
-    proc.stderr.on("data", (d) => (stderr += d.toString()));
-    proc.on("close", () => {
-      const m = stderr.match(/Duration:\s*(\d+):(\d+):(\d+(?:\.\d+)?)/);
-      if (!m) reject(new Error("영상 길이를 파싱할 수 없어요"));
-      else resolve(+m[1] * 3600 + +m[2] * 60 + +m[3]);
     });
     proc.on("error", reject);
   });
