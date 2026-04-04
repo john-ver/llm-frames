@@ -16,15 +16,15 @@ English | [한국어](./README.ko.md)
 
 Existing tools either target human inspection or general-purpose video processing — not LLM input budgets.
 
-| | llm-frames | vcsi | ffmpeg (raw) | video2dataset |
-|---|---|---|---|---|
-| **Purpose** | LLM context injection | Human contact sheet | Frame extraction | Dataset pipeline |
-| **Output** | Grid JPEG + XML timestamps | Contact sheet image | Individual frames | Frames / clips |
-| **Token budget aware** | ✅ one image, all frames | ❌ large human-readable sheet | ❌ N separate images | ❌ |
-| **Frame index overlay** | ✅ LLM can reference by number | ❌ | ❌ | ❌ |
-| **Auto layout** | ✅ from video aspect ratio | partial | ❌ | ❌ |
-| **Timestamp text pairing** | ✅ XML alongside image | ❌ | ❌ | ❌ |
-| **Runtime** | Node.js + ffmpeg | Python | ffmpeg | Python + heavy deps |
+| | llm-frames | vcsi | ffmpeg (raw) |
+|---|---|---|---|
+| **Purpose** | LLM context injection | Human contact sheet | Frame extraction |
+| **Output** | Grid JPEG + XML timestamps | Contact sheet image | Individual frames |
+| **Token budget aware** | ✅ one image, all frames | ❌ large human-readable sheet | ❌ N separate images |
+| **Frame index overlay** | ✅ LLM can reference by number | ❌ | ❌ |
+| **Auto layout** | ✅ from video aspect ratio | partial | ❌ |
+| **Timestamp text pairing** | ✅ XML alongside image | ❌ | ❌ |
+| **Runtime** | Node.js + ffmpeg | Python | ffmpeg |
 
 The core insight: sending a video to an LLM needs a **paired** output — a grid image the model can see, and a text block with timestamps it can reference. Neither alone is sufficient.
 
