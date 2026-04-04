@@ -1,0 +1,41 @@
+{
+  "name": "llm-frames",
+  "version": "0.1.0",
+  "description": "Extract video frames for LLM context injection",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "README.ko.md"
+  ],
+  "author": "john-ver",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/john-ver/llm-frames.git"
+  },
+  "homepage": "https://github.com/john-ver/llm-frames",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "keywords": [
+    "llm",
+    "video",
+    "frames",
+    "multimodal",
+    "ffmpeg"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "typescript": "^5.4.0"
+  }
+}
