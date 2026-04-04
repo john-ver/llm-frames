@@ -1,5 +1,8 @@
 # llm-frames
 
+[![npm](https://img.shields.io/npm/v/llm-frames)](https://www.npmjs.com/package/llm-frames)
+[![CI](https://github.com/john-ver/llm-frames/actions/workflows/ci.yml/badge.svg)](https://github.com/john-ver/llm-frames/actions/workflows/ci.yml)
+
 > 비디오 프레임을 그리드 이미지로 추출해 LLM 컨텍스트에 주입합니다.
 
 [English](./README.md) | 한국어

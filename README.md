@@ -1,5 +1,8 @@
 # llm-frames
 
+[![npm](https://img.shields.io/npm/v/llm-frames)](https://www.npmjs.com/package/llm-frames)
+[![CI](https://github.com/john-ver/llm-frames/actions/workflows/ci.yml/badge.svg)](https://github.com/john-ver/llm-frames/actions/workflows/ci.yml)
+
 > Extract video frames as a grid image for LLM context injection.
 
 English | [한국어](./README.ko.md)
