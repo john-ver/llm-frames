@@ -222,26 +222,25 @@ export async function extractFrames(
       timestamps = uniformTimestamps(duration, count).map((t) => t + start);
     }
 
-    const frames: VideoFrame[] = await Promise.all(
-      timestamps.map(async (timestamp, i) => {
-        const data = await extractOneFrame(
-          input,
-          timestamp,
-          width,
-          quality,
-          tmpDir,
-          i + 1,
-          ffmpegPath
-        );
-        return {
-          index: i + 1,
-          timestamp,
-          data,
-          mimeType: "image/jpeg" as const,
-          isSceneChange: sceneCuts.has(timestamp),
-        };
-      })
-    );
+    const frames: VideoFrame[] = [];
+    for (let i = 0; i < timestamps.length; i++) {
+      const data = await extractOneFrame(
+        input,
+        timestamps[i],
+        width,
+        quality,
+        tmpDir,
+        i + 1,
+        ffmpegPath
+      );
+      frames.push({
+        index: i + 1,
+        timestamp: timestamps[i],
+        data,
+        mimeType: "image/jpeg" as const,
+        isSceneChange: sceneCuts.has(timestamps[i]),
+      });
+    }
 
     return { frames, duration, videoWidth, videoHeight };
   } finally {
