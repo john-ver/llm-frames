@@ -200,6 +200,17 @@ export async function extractFrames(
   const { duration: fullDuration, videoWidth, videoHeight } = await getVideoInfo(input, ffmpegPath);
   const start = opts.startTime ?? 0;
   const end = opts.endTime ?? fullDuration;
+
+  if (!isFinite(start) || start < 0) {
+    throw new Error(`Invalid startTime: expected non-negative finite number, got ${JSON.stringify(start)}`);
+  }
+  if (!isFinite(end) || end <= 0) {
+    throw new Error(`Invalid endTime: expected positive finite number, got ${JSON.stringify(end)}`);
+  }
+  if (start >= end) {
+    throw new Error(`Invalid range: startTime (${start}) must be less than endTime (${end})`);
+  }
+
   const duration = end - start;
   const tmpDir = await mkdtemp(join(tmpdir(), "llm-frames-"));
 
