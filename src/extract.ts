@@ -1,5 +1,5 @@
 import { spawn } from "child_process";
-import { mkdtemp, readFile, rm } from "fs/promises";
+import { mkdtemp, readFile, rm, stat } from "fs/promises";
 import { tmpdir } from "os";
 import { join } from "path";
 import type { ExtractOptions, VideoFrame } from "./types.js";
@@ -195,6 +195,12 @@ export async function extractFrames(
   }
   if (typeof sceneThreshold !== "number" || !isFinite(sceneThreshold) || sceneThreshold < 0 || sceneThreshold > 1) {
     throw new Error(`Invalid sceneThreshold: expected number 0–1, got ${JSON.stringify(sceneThreshold)}`);
+  }
+
+  const { size } = await stat(input).catch(() => { throw new Error(`Input file not found: ${input}`); });
+  const sizeMb = size / 1024 / 1024;
+  if (sizeMb > 500) {
+    throw new Error(`Input file too large: ${sizeMb.toFixed(0)}MB (limit 500MB)`);
   }
 
   const { duration: fullDuration, videoWidth, videoHeight } = await getVideoInfo(input, ffmpegPath);
