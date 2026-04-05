@@ -63,8 +63,8 @@ export async function getVideoInfo(
     proc.stderr.on("data", (d) => (stderr += d.toString()));
     proc.on("close", () => {
       const mDur = stderr.match(/Duration:\s*(\d+):(\d+):(\d+(?:\.\d+)?)/);
-      if (!mDur) reject(new Error("영상 길이를 파싱할 수 없어요"));
-      const duration = +mDur![1] * 3600 + +mDur![2] * 60 + +mDur![3];
+      if (!mDur) return reject(new Error("영상 길이를 파싱할 수 없어요"));
+      const duration = +mDur[1] * 3600 + +mDur[2] * 60 + +mDur[3];
 
       const mSize = stderr.match(/Stream.*Video.*?,\s(\d{2,5})x(\d{2,5})[\s,[]/);
       const videoWidth = mSize ? +mSize[1] : 1920;
