@@ -35,6 +35,7 @@ The core insight: sending a video to an LLM needs a **paired** output — a grid
 
 - Node.js 18+
 - `ffmpeg` 4.0+ in `$PATH`
+- Input file under 500MB
 
 ## Install
 
