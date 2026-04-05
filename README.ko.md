@@ -111,7 +111,7 @@ interface ExtractOptions {
                            // extract()에서는 무시됨 — 항상 autoLayout()이 덮어씀
                            // extractFrames() 직접 호출 시에만 적용
   quality?: number;        // JPEG 품질 1–31, 낮을수록 좋음 (기본값: 4)
-  sceneThreshold?: number; // 장면 감지 감도 0–1 (highlight 전용, 기본값: 0.4)
+  sceneThreshold?: number; // 장면 감지 감도 0.01–1 (highlight 전용, 기본값: 0.4)
   ffmpegPath?: string;     // 커스텀 ffmpeg 바이너리 경로
 }
 ```

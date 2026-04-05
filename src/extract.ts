@@ -193,8 +193,8 @@ export async function extractFrames(
   if (typeof quality !== "number" || !Number.isInteger(quality) || quality < 1 || quality > 31) {
     throw new Error(`Invalid quality: expected integer 1–31, got ${JSON.stringify(quality)}`);
   }
-  if (typeof sceneThreshold !== "number" || !isFinite(sceneThreshold) || sceneThreshold < 0 || sceneThreshold > 1) {
-    throw new Error(`Invalid sceneThreshold: expected number 0–1, got ${JSON.stringify(sceneThreshold)}`);
+  if (typeof sceneThreshold !== "number" || !isFinite(sceneThreshold) || sceneThreshold < 0.01 || sceneThreshold > 1) {
+    throw new Error(`Invalid sceneThreshold: expected number 0.01–1, got ${JSON.stringify(sceneThreshold)}`);
   }
 
   const { duration: fullDuration, videoWidth, videoHeight } = await getVideoInfo(input, ffmpegPath);

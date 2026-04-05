@@ -111,7 +111,7 @@ interface ExtractOptions {
                            // ignored by extract() — always overridden by autoLayout()
                            // only applies when calling extractFrames() directly
   quality?: number;        // JPEG quality 1–31, lower = better (default: 4)
-  sceneThreshold?: number; // scene detection sensitivity 0–1 (highlight only, default: 0.4)
+  sceneThreshold?: number; // scene detection sensitivity 0.01–1 (highlight only, default: 0.4)
   ffmpegPath?: string;     // custom ffmpeg binary path
 }
 ```
