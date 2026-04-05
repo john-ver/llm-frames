@@ -136,7 +136,14 @@ function runFfmpeg(args: string[], ffmpegPath: string): Promise<void> {
     proc.stderr.on("data", (d: Buffer) => (stderr += d.toString()));
     proc.on("close", (code: number) => {
       if (code === 0) resolve();
-      else reject(new Error(`ffmpeg exited ${code}\n${stderr}`));
+      else {
+        const relevant = stderr
+          .split("\n")
+          .filter((l) => /error|invalid|failed|cannot|no such/i.test(l))
+          .slice(0, 5)
+          .join("\n");
+        reject(new Error(`ffmpeg exited with code ${code}\n${relevant || "(no error detail)"}`));
+      }
     });
     proc.on("error", reject);
   });
